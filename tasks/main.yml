@@ -1,0 +1,24 @@
+---
+- name: OS specific variables
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+
+- name: Check valid CMD version
+  debug: msg:"CMD version {{ cmd_version_major }} not known!"
+  when: (cmd_version_major is not defined) or (cmd_version_major > 1)
+
+- name: Install software-properties-common
+  apt:
+    name: software-properties-common
+    state: latest
+  when: (ansible_distribution == "Debian")
+
+- name: Install OpenStack cloud-archive ppa
+  command: "add-apt-repository -y cloud-archive:mitaka"
+  when: (ansible_distribution == "Debian") and (cmd_version_major == "1")
+
+- name: Install OpenStack RDO
+  package: name=centos-release-openstack-mitaka
+  when: (ansible_distribution == "CentOS") and (cmd_version_major == "1")
+
+- name: Download verification repository
+  get_url: url={{ verification_repofile }} dest={{ sources_dir }}
