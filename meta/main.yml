@@ -1,0 +1,13 @@
+galaxy_info:
+  author: Pablo Orviz Fernandez
+  description: Ansible playbook to enable CMD repository.
+  license: Apache 2.0
+  min_ansible_version: 2.1
+  platforms:
+  - name: Ubuntu
+    versions:
+    - precise
+  - name: CentOS
+    versions:
+    - 7
+dependencies: []
