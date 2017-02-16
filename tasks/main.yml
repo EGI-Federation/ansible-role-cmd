@@ -3,8 +3,8 @@
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
 
 - name: Check valid CMD version
-  debug: msg:"CMD version {{ cmd_version_major }} not known!"
-  when: (cmd_version_major is not defined) or (cmd_version_major > 1)
+  debug: msg:"CMD version {{ release }} not known!"
+  when: (release is not defined) or (release > 1)
 
 - name: Install software-properties-common
   apt:
