@@ -14,11 +14,11 @@
 
 - name: Install OpenStack cloud-archive ppa
   command: "add-apt-repository -y cloud-archive:mitaka"
-  when: (ansible_distribution == "Debian") and (release == "1")
+  when: (ansible_distribution == "Debian") and (release == 1)
 
 - name: Install OpenStack RDO
   package: name=centos-release-openstack-mitaka
-  when: (ansible_distribution == "CentOS") and (release == "1")
+  when: (ansible_distribution == "CentOS") and (release == 1)
 
 - name: Download verification repository files
   get_url: url={{ item }} dest={{ sources_dir }}
