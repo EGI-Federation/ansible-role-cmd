@@ -24,4 +24,8 @@
   get_url: url={{ item }} dest={{ sources_dir }}
   with_items: 
     - "{{ verification_repofile|default([]) }}"
-  when: verification_repofile is defined 
+  when: verification_repofile is defined
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
