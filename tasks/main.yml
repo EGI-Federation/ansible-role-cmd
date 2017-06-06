@@ -23,5 +23,5 @@
 - name: Download verification repository files
   get_url: url={{ item }} dest={{ sources_dir }}
   with_items: 
-    - "{{ verification_repofile }}"
+    - "{{ verification_repofile|default([]) }}"
   when: verification_repofile is defined 
