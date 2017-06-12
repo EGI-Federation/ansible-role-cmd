@@ -15,6 +15,9 @@
     dest: /etc/apt/sources.list
     line: 'deb http://repository.egi.eu/sw/production/cmd-os/candidate/1/ubuntu/ xenial-updates main'
 
+- name: Update cache
+  apt:
+    update_cache: yes
+
 - name: Install OpenStack cloud-archive ppa
   command: "add-apt-repository -y cloud-archive:mitaka"
-  when: (ansible_distribution == "Debian") and (release == 1)
