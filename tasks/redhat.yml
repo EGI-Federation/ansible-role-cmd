@@ -1,0 +1,4 @@
+
+- name: Install OpenStack RDO
+  package: name=centos-release-openstack-mitaka
+  when: (ansible_distribution == "CentOS") and (release == 1)

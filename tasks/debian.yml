@@ -1,0 +1,16 @@
+---
+
+- apt_key:
+    url: "http://repository.egi.eu/sw/production/umd/UMD-DEB-PGP-KEY"
+    state: present
+  when: verification_repofile is defined
+
+- name: Install software-properties-common
+  apt:
+    name: software-properties-common
+    state: latest
+  when: (ansible_distribution == "Debian")
+
+- name: Install OpenStack cloud-archive ppa
+  command: "add-apt-repository -y cloud-archive:mitaka"
+  when: (ansible_distribution == "Debian") and (release == 1)
