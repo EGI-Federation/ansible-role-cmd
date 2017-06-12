@@ -12,7 +12,7 @@
 
 - name: Enable candidate repository
   lineinfile:
-    path: /etc/apt/sources.list
+    dest: /etc/apt/sources.list
     line: 'deb http://repository.egi.eu/sw/production/cmd-os/candidate/1/ubuntu/ xenial-updates main'
 
 - name: Install OpenStack cloud-archive ppa
