@@ -1,9 +1,15 @@
 ---
 
-- apt_key:
+- name: Add APT key of UMD repository
+  apt_key:
     url: "http://repository.egi.eu/sw/production/umd/UMD-DEB-PGP-KEY"
     state: present
   when: verification_repofile is defined or enable_candidate_repo is defined
+
+- name: Enable candidate repository
+  apt_repository:
+    repo: deb http://repository.egi.eu/sw/production/cmd-os/candidate/1/ubuntu/ xenial-updates main
+    state: present
 
 - name: Install software-properties-common
   apt:
