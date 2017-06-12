@@ -15,9 +15,15 @@
     dest: /etc/apt/sources.list
     line: 'deb http://repository.egi.eu/sw/production/cmd-os/candidate/1/ubuntu/ xenial-updates main'
 
+- name: Remove i386 architecture
+  shell: "dpkg --remove-architecture i386"
+
 - name: Update cache
-  apt:
-    update_cache: yes
+  shell: "apt-get update"
+  #apt:
+  #  update_cache: yes
+  #  cache_valid_time: 10
 
 - name: Install OpenStack cloud-archive ppa
   command: "add-apt-repository -y cloud-archive:mitaka"
+  when: ansible_distribution_release != "xenial"
