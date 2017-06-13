@@ -9,7 +9,7 @@
     protect: yes
     priority: 1
     gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
-  when enable_candidate_repository
+  when: enable_candidate_repository
 
 - name: Enable candidate repository - updates
   yum_repository:
@@ -22,7 +22,7 @@
     protect: yes
     priority: 1
     gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
-  when enable_candidate_repository
+  when: enable_candidate_repository
 
 - name: Install OpenStack RDO
   package: name=centos-release-openstack-mitaka
