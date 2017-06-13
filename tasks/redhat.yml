@@ -2,7 +2,7 @@
   yum_repository:
     name: CMD-OS-1-candidate-base
     description: CMD-OS 1 candidate base (CentOS 7)
-    file: CMD-OS-1-candidate.repo
+    file: CMD-OS-1-candidate
     baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/base
     enabled: yes
     gpgcheck: yes
@@ -15,7 +15,7 @@
   yum_repository:
     name: CMD-OS-1-candidate-updates
     description: CMD-OS 1 candidate updates (CentOS 7)
-    file: CMD-OS-1-candidate.repo
+    file: CMD-OS-1-candidate
     baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/updates
     enabled: yes
     gpgcheck: yes
