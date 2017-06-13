@@ -6,6 +6,10 @@
   debug: msg:"CMD version {{ release }} not known!"
   when: (release is not defined) or (release > 1)
 
+- name: Install CMD release package
+  package: {{ release_url }}
+  when: release_url is defined
+
 - name: Deploy Debian-specific
   include: debian.yml
   when: (ansible_distribution == "Debian") or (ansible_distribution == "Ubuntu")
