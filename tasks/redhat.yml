@@ -1,3 +1,28 @@
+- name: Enable candidate repository - base
+  yum_repository:
+    name: CMD-OS-1-candidate-base
+    description: CMD-OS 1 candidate base (CentOS 7)
+    file: CMD-OS-1-candidate.repo
+    baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/base
+    enabled: yes
+    gpgcheck: yes
+    protect: yes
+    priority: 1
+    gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  when enable_candidate_repository
+
+- name: Enable candidate repository - updates
+  yum_repository:
+    name: CMD-OS-1-candidate-updates
+    description: CMD-OS 1 candidate updates (CentOS 7)
+    file: CMD-OS-1-candidate.repo
+    baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/updates
+    enabled: yes
+    gpgcheck: yes
+    protect: yes
+    priority: 1
+    gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  when enable_candidate_repository
 
 - name: Install OpenStack RDO
   package: name=centos-release-openstack-mitaka
