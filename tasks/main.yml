@@ -9,7 +9,6 @@
 - name: Install CMD release package
   package: 
     name: "{{ release_url }}"
-    state: latest
   when: release_url is defined
 
 - name: Deploy Debian-specific
