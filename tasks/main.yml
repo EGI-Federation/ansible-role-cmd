@@ -7,7 +7,9 @@
   when: (release is not defined) or (release > 1)
 
 - name: Install CMD release package
-  package: {{ release_url }}
+  package: 
+    name: "{{ release_url }}"
+    state: latest
   when: release_url is defined
 
 - name: Deploy Debian-specific
