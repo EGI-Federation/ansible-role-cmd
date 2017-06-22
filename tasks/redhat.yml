@@ -1,3 +1,9 @@
+---
+- name: Install CMD release package
+  yum: 
+    name: "{{ release_url }}"
+  when: release_url is defined
+
 - name: Enable candidate repository - base
   yum_repository:
     name: CMD-OS-1-candidate-base
