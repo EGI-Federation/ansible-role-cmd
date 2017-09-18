@@ -1,4 +1,14 @@
 ---
+- name: Set release package for CMD-OS
+  set_fact:
+    release_url: http://repository.egi.eu/sw/production/cmd-os/1/centos7/x86_64/base/cmd-os-release-1.0.1-1.el7.centos.noarch.rpm
+  when: cmd_distribution == "cmd-os"
+
+- name: Set release package for CMD-ONE
+  set_fact:
+    release_url: http://repository.egi.eu/sw/production/cmd-one/candidate/1/centos7/x86_64/base/cmd-one-release-1.0.0-1.el7.centos.noarch.rpm
+  when: cmd_distribution == "cmd-one"
+
 - name: Install CMD release package
   yum: 
     name: "{{ release_url }}"
@@ -15,7 +25,7 @@
     protect: yes
     priority: 1
     gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
-  when: enable_candidate_repo
+  when: enable_candidate_repo and cmd_distribution == "cmd-os"
 
 - name: Enable candidate repository - updates
   yum_repository:
@@ -32,4 +42,4 @@
 
 - name: Install OpenStack RDO
   package: name=centos-release-openstack-mitaka
-  when: (ansible_distribution == "CentOS") and (release == 1)
+  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os")

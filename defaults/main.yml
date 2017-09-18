@@ -1,2 +1,3 @@
 ---
+cmd_distribution: cmd-os
 enable_candidate_repo: false
