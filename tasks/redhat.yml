@@ -12,7 +12,7 @@
 - name: Install CMD release package
   yum: 
     name: "{{ release_url }}"
-  when: release_url is defined
+  when: (release_url is defined) and (cmd_distribution == "cmd-os")
 
 - name: Enable CMD-OS candidate repository - base
   yum_repository:
