@@ -1,3 +1,4 @@
 ---
 cmd_distribution: cmd-os
+openstack_release: mitaka
 enable_candidate_repo: false

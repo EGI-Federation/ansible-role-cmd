@@ -54,5 +54,10 @@
   when: enable_candidate_repo and cmd_distribution == "cmd-one"
 
 - name: Install OpenStack RDO
-  package: name=centos-release-openstack-mitaka
-  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os")
+  package: name=centos-release-openstack-{{ openstack_release }}
+  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os") and (openstack_release != "mitaka")
+
+- name: Install OpenStack RDO (workaround for mitaka)
+  yum:
+    name: "http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/centos-release-openstack-mitaka-1-2.el7.cern.noarch.rpm" 
+  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os") and (openstack_release == "mitaka")
