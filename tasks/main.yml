@@ -1,0 +1,28 @@
+---
+# tasks file for ansible-role-cmd
+
+- name: Add CMD-OS repository
+  block:
+  - yum_repository:
+      name: cmd-os
+      description: CMD-OS 1
+      baseurl: http://repository.egi.eu/sw/production/cmd-os/1/centos7/$basearch/base
+      gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  - yum_repository:
+      name: cmd-os-updates
+      description: CMD-OS 1-updates
+      baseurl: http://repository.egi.eu/sw/production/cmd-os/1/centos7/$basearch/updates
+      gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+
+- name: Add CAs repository
+  yum_repository:
+    name: EGI-trustanchors
+    description: EGI trustanchors
+    baseurl: http://repository.egi.eu/sw/production/cas/1/current/
+    gpgkey: http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3
+
+- name: Install OS repository for {{ cmd_os_release }}
+  package:
+    name: "centos-release-openstack-{{ cmd_os_release }}"
+    state: present
+  when: cmd_os_enable_rdo
