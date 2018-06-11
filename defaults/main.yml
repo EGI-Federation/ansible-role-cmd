@@ -6,5 +6,3 @@ cmd_os_enable_rdo: true
 
 # OpenStack version to use
 cmd_os_release: pike
-
-
