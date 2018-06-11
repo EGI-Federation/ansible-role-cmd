@@ -1,5 +1,7 @@
 # ansible-role-cmd
 
+[![Build Status](https://travis-ci.org/EGI-Foundation/ansible-role-cmd.svg?branch=master)](https://travis-ci.org/EGI-Foundation/ansible-role-cmd)
+
 Role for configuring CMD and OpenStack repositories
 
 
