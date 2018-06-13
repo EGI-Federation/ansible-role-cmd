@@ -1,0 +1,63 @@
+---
+- name: Set release package for CMD-OS
+  set_fact:
+    release_url: http://repository.egi.eu/sw/production/cmd-os/1/centos7/x86_64/base/cmd-os-release-1.0.1-1.el7.centos.noarch.rpm
+  when: cmd_distribution == "cmd-os"
+
+- name: Set release package for CMD-ONE
+  set_fact:
+    release_url: http://repository.egi.eu/sw/production/cmd-one/candidate/1/centos7/x86_64/base/cmd-one-release-1.0.0-1.el7.centos.noarch.rpm
+  when: cmd_distribution == "cmd-one"
+
+- name: Install CMD release package
+  yum: 
+    name: "{{ release_url }}"
+  when: release_url is defined
+
+- name: Enable CMD-OS candidate repository - base
+  yum_repository:
+    name: CMD-OS-1-candidate-base
+    description: CMD-OS 1 candidate base (CentOS 7)
+    file: CMD-OS-1-candidate
+    baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/base
+    enabled: yes
+    gpgcheck: yes
+    protect: yes
+    priority: 1
+    gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  when: enable_candidate_repo and cmd_distribution == "cmd-os"
+
+- name: Enable CMD-OS candidate repository - updates
+  yum_repository:
+    name: CMD-OS-1-candidate-updates
+    description: CMD-OS 1 candidate updates (CentOS 7)
+    file: CMD-OS-1-candidate
+    baseurl: http://repository.egi.eu/sw/production/cmd-os/candidate/1/centos7/$basearch/updates
+    enabled: yes
+    gpgcheck: yes
+    protect: yes
+    priority: 1
+    gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  when: enable_candidate_repo and cmd_distribution == "cmd-os"
+
+- name: Enable CMD-ONE candidate repository - base
+  yum_repository:
+    name: CMD-ONE-1-candidate-base
+    description: CMD-ONE 1 candidate base (CentOS 7)
+    file: CMD-ONE-1-candidate
+    baseurl: http://repository.egi.eu/sw/production/cmd-one/candidate/1/centos7/$basearch/base
+    enabled: yes
+    gpgcheck: yes
+    protect: yes
+    priority: 1
+    gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
+  when: enable_candidate_repo and cmd_distribution == "cmd-one"
+
+- name: Install OpenStack RDO
+  package: name=centos-release-openstack-{{ openstack_release }}
+  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os") and (openstack_release != "mitaka")
+
+- name: Install OpenStack RDO (workaround for mitaka)
+  yum:
+    name: "http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/centos-release-openstack-mitaka-1-2.el7.cern.noarch.rpm" 
+  when: (ansible_distribution == "CentOS") and (release == 1) and (cmd_distribution == "cmd-os") and (openstack_release == "mitaka")

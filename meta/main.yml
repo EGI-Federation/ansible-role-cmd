@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: Enol Fernandez
-  description: CMD-OS repositry configuration
+  author: EGI Federation Partners
+  description: CMD-OS repository configuration
   company: EGI Foundation
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -29,13 +29,10 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-          #      - 6
         - 7
-          #    - name: Debian
-          #versions:
-          #- 8
-          #- 9
-          #- 10
+    - name: Ubuntu 
+      versions:
+        - precise 
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes

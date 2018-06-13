@@ -26,3 +26,29 @@
     name: "centos-release-openstack-{{ cmd_os_release }}"
     state: present
   when: cmd_os_enable_rdo
+
+- name: OS specific variables
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+
+- name: Check valid CMD version
+  debug: msg:"CMD version {{ release }} not known!"
+  when: (release is not defined) or (release > 1)
+
+- name: Deploy Debian-specific
+  include: debian.yml
+  when: (ansible_os_family | lower) == "debian")
+
+- name: Deploy RedHat-specific
+  include: redhat.yml
+  when: (ansible_os_family | lower) == "redhat")
+
+- name: Download verification repository files
+  get_url: url={{ item }} dest={{ sources_dir }}
+  with_items: 
+    - "{{ verification_repofile|default([]) }}"
+  when: verification_repofile is defined
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+  when: (ansible_distribution == "Debian") and (release == 1)

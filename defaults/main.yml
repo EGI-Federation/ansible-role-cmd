@@ -1,8 +1,13 @@
 ---
 # defaults file for ansible-role-cmd
 
+# cmd-os or cmd-one
+cmd_distribution: cmd-os
+
 # Whether to enable or not RDO repos
 cmd_os_enable_rdo: true
 
 # OpenStack version to use
-cmd_os_release: pike
+cmd_os_openstack_release: pike
+
+cmd_enable_candidate_repo: false
