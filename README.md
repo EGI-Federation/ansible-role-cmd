@@ -11,8 +11,8 @@ None
 
 ## Role Variables
 
-* `cmd_os_enable_rdo`: Whether to enable or not the setup of the RDO repositories, default: `true`
-* `cmd_os_release`: Release of OpenStack to use, default: `pike`
+* `cmd_distribution`: `cmd-os` for OpenStack, `cmd-one` for OpenNebula
+* `cmd_openstack_release`: Release of OpenStack to use, default: `pike`
 
 
 ## Dependencies
@@ -24,7 +24,7 @@ None
 ```yaml
     - hosts: servers
       roles:
-         - { role: EGI-Foundation.cmd, cmd_os_release: queens }
+         - { role: EGI-Foundation.cmd, cmd_openstack_release: queens }
 ```
 
 ## License
