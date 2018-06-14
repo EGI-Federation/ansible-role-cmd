@@ -13,17 +13,17 @@
   apt_key:
     url: "http://repository.egi.eu/sw/production/umd/UMD-DEB-PGP-KEY"
     state: present
-  when: verification_repofile is defined or enable_candidate_repo
+  when: verification_repofile is defined or cmd_enable_candidate_repo
 
 - name: Enable candidate repository
   lineinfile:
     dest: /etc/apt/sources.list
     line: 'deb http://repository.egi.eu/sw/production/cmd-os/candidate/1/ubuntu/ xenial-updates main'
-  when: enable_candidate_repo
+  when: cmd_enable_candidate_repo
 
 - name: Remove i386 architecture
   shell: "dpkg --remove-architecture i386"
-  when: enable_candidate_repo
+  when: cmd_enable_candidate_repo
 
 - name: Update cache
   shell: "apt-get update"
@@ -32,5 +32,5 @@
   #  cache_valid_time: 10
 
 - name: Install OpenStack cloud-archive ppa
-  command: "add-apt-repository -y cloud-archive:{{ openstack_release }}"
+  command: "add-apt-repository -y cloud-archive:{{ cmd_openstack_release }}"
   when: ansible_distribution_release != "xenial"

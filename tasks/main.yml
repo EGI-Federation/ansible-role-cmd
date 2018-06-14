@@ -1,46 +1,19 @@
 ---
 # tasks file for ansible-role-cmd
-
-- name: Add CMD-OS repository
-  block:
-  - yum_repository:
-      name: cmd-os
-      description: CMD-OS 1
-      baseurl: http://repository.egi.eu/sw/production/cmd-os/1/centos7/$basearch/base
-      gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
-  - yum_repository:
-      name: cmd-os-updates
-      description: CMD-OS 1-updates
-      baseurl: http://repository.egi.eu/sw/production/cmd-os/1/centos7/$basearch/updates
-      gpgkey: http://repository.egi.eu/sw/production/umd/UMD-RPM-PGP-KEY
-
-- name: Add CAs repository
-  yum_repository:
-    name: EGI-trustanchors
-    description: EGI trustanchors
-    baseurl: http://repository.egi.eu/sw/production/cas/1/current/
-    gpgkey: http://repository.egi.eu/sw/production/cas/1/GPG-KEY-EUGridPMA-RPM-3
-
-- name: Install OS repository for {{ cmd_os_release }}
-  package:
-    name: "centos-release-openstack-{{ cmd_os_release }}"
-    state: present
-  when: cmd_os_enable_rdo
-
-- name: OS specific variables
+- name: Read OS specific variables
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
 
 - name: Check valid CMD version
-  debug: msg:"CMD version {{ release }} not known!"
-  when: (release is not defined) or (release > 1)
+  debug: msg="CMD version {{ cmd_release }} not known!"
+  when: (cmd_release is not defined) or (cmd_release > 1)
 
 - name: Deploy Debian-specific
   include: debian.yml
-  when: (ansible_os_family | lower) == "debian")
+  when: ((ansible_os_family | lower) == "debian")
 
 - name: Deploy RedHat-specific
   include: redhat.yml
-  when: (ansible_os_family | lower) == "redhat")
+  when: ((ansible_os_family | lower) == "redhat")
 
 - name: Download verification repository files
   get_url: url={{ item }} dest={{ sources_dir }}
@@ -51,4 +24,4 @@
 - name: Update APT cache
   apt:
     update_cache: yes
-  when: (ansible_distribution == "Debian") and (release == 1)
+  when: ((ansible_os_family | lower) == "debian") and (cmd_release == 1)
