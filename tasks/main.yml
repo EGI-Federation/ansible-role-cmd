@@ -25,3 +25,8 @@
   apt:
     update_cache: yes
   when: ((ansible_os_family | lower) == "debian") and (cmd_release == 1)
+
+- name: Set up IGTF repository
+  import_tasks: igtf.yml
+  tags:
+    - certificates
