@@ -12,7 +12,7 @@ None
 ## Role Variables
 
 * `cmd_distribution`: `cmd-os` for OpenStack, `cmd-one` for OpenNebula
-* `cmd_openstack_release`: Release of OpenStack to use, default: `pike`
+* `cmd_openstack_release`: Release of OpenStack to use, default: `queens`
 
 
 ## Dependencies
