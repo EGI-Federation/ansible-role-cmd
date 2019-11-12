@@ -14,6 +14,6 @@ def test_hosts_file(host):
     assert f.group == 'root'
 
 def test_package(host):
-    p = host.package('centos-release-openstack-pike')
+    p = host.package('centos-release-openstack-queens')
 
     assert p.is_installed

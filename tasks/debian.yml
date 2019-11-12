@@ -33,4 +33,3 @@
 
 - name: Install OpenStack cloud-archive ppa
   command: "add-apt-repository -y cloud-archive:{{ cmd_openstack_release }}"
-  when: ansible_distribution_release != "xenial"
